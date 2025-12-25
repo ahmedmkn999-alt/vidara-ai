@@ -1,23 +1,44 @@
-export default function AdminControl() {
+"use client";
+import { useState } from 'react';
+
+export default function AdminPanel() {
+  const [password, setPassword] = useState("");
+  const [isAuthorized, setIsAuthorized] = useState(false);
+
+  // حماية اللوحة بباسورد
+  if (!isAuthorized) {
+    return (
+      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
+        <h1 className="mb-4">دخول الإدارة</h1>
+        <input 
+          type="password" 
+          onChange={(e) => setPassword(e.target.value)} 
+          className="bg-gray-800 p-2 rounded"
+        />
+        <button 
+          onClick={() => password === "admin123" && setIsAuthorized(true)}
+          className="mt-4 bg-purple-600 px-6 py-2 rounded"
+        >
+          دخول
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-[#0b0f19] min-h-screen text-white p-10 text-right">
-      <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 mb-12">لوحة المشرف - طلبات الدفع</h1>
-      
-      <div className="grid gap-6">
-        <div className="bg-[#161b2a] p-6 rounded-3xl border border-gray-800 flex flex-row-reverse justify-between items-center shadow-xl">
-          <div className="flex-1 px-10 space-y-3">
-             <h3 className="text-xl font-bold text-green-400">الاسم: محمد أحمد</h3>
-             <p className="text-gray-400">الرقم المحول منه: <span className="text-white">01012345678</span></p>
-             <p className="text-gray-400">الباقة المطلوبة: <span className="text-purple-400 font-bold">برو 2 (250ج)</span></p>
-             <div className="flex gap-4 pt-4">
-                <input type="text" placeholder="اكتب كود التفعيل هنا" className="bg-gray-900 border border-gray-700 p-3 rounded-xl flex-1 focus:border-green-500 outline-none" />
-                <button className="bg-green-600 px-8 py-3 rounded-xl font-bold hover:bg-green-700 transition">إرسال الكود</button>
-             </div>
+    <div className="p-10 text-white bg-[#0b0f19] min-h-screen text-right">
+      <h1 className="text-3xl font-bold text-purple-500 mb-8">طلبات المشتركين (01114672635)</h1>
+      <div className="grid gap-4">
+        {/* سيتم جلب البيانات هنا من Back4App */}
+        <div className="bg-[#161b2a] p-6 rounded-2xl border border-gray-800 flex justify-between">
+          <div>
+             <p className="text-green-400 font-bold">بانتظار التفعيل...</p>
+             <input type="text" placeholder="كود التفعيل" className="bg-black p-2 mt-2 rounded border border-gray-700" />
+             <button className="bg-blue-600 px-4 py-2 rounded mr-2">إرسال</button>
           </div>
-          
-          <div className="w-56 h-72 bg-gray-900 rounded-3xl border border-gray-700 flex flex-col items-center justify-center group cursor-pointer relative overflow-hidden">
-             <p className="text-gray-600 text-sm">صورة التحويل (اضغط للتكبير)</p>
-             {/* هنا تظهر الصورة الحقيقية من Back4App */}
+          <div className="text-left">
+             <p>رقم المحول: 01xxxxxxxxx</p>
+             <p className="text-gray-500 text-sm italic">صورة التحويل مرفقة</p>
           </div>
         </div>
       </div>
