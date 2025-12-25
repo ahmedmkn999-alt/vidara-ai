@@ -1,9 +1,15 @@
-import './globals.css'
-export const metadata = { title: 'Vidara - صناعة الفيديو بالذكاء الاصطناعي' }
+"use client";
+import { SessionProvider } from "next-auth/react";
+import './globals.css';
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ar" dir="rtl">
-      <body>{children}</body>
+      <body className="bg-[#0b0f19]">
+        <SessionProvider>
+          {children}
+        </SessionProvider>
+      </body>
     </html>
-  )
+  );
 }
